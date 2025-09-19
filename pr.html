@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktibong Gabay sa Awit 109</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Sand (Beige #F5F5DC, Clay #E3A387, Charcoal #36454F, Gold #FFD700) -->
+    <!-- Application Structure Plan: A single-page, scrollable application divided into thematic sections: Hero, Context, an interactive Tab-based section for the three Core Lessons, an Infographic Summary, and a concluding message. This structure transforms the linear presentation guide into a more engaging, user-driven exploratory experience. The tabbed interaction is key, allowing users to focus on one lesson at a time while understanding they are part of a cohesive whole, which is better for learning and retention than simple scrolling. -->
+    <!-- Visualization & Content Choices: Report Info: Three main lessons from Psalm 109 -> Goal: Organize & Engage -> Viz/Method: Interactive Tabbed Interface (HTML/CSS/JS) -> Interaction: User clicks to reveal content for each lesson -> Justification: Promotes active user exploration over passive reading. Report Info: Summary of lessons -> Goal: Inform/Organize -> Viz/Method: 3-column infographic-style layout (HTML/Tailwind) with Unicode icons (🛡️, ⚖️, 🏆) -> Justification: Provides a quick, scannable summary. All graphics are Unicode/CSS-based. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #F5F5DC;
+            color: #36454F;
+            font-family: 'Lato', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .font-title {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://placehold.co/1200x800/36454F/F5F5DC?text=Pag-asa+sa+Gitna+ng+Kadiliman');
+            background-size: cover;
+            background-position: center;
+        }
+        .conclusion-bg {
+             background-image: linear-gradient(rgba(54, 69, 79, 0.7), rgba(54, 69, 79, 0.7)), url('https://placehold.co/1200x600/E3A387/36454F?text=Matatag+na+Kuta');
+            background-size: cover;
+            background-position: center;
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #E3A387;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-content {
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="hero-bg text-white flex items-center justify-center h-screen min-h-[500px]">
+        <div class="text-center p-8">
+            <h1 id="hero-title" class="font-title text-5xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase" style="color:#FFD700;"></h1>
+            <p id="hero-subtitle" class="mt-4 text-xl md:text-2xl max-w-2xl mx-auto font-light text-gray-200"></p>
+        </div>
+    </header>
+
+    <main>
+        <section id="context" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="text-center mb-12">
+                    <h2 id="context-title" class="text-3xl md:text-4xl font-bold" style="color: #36454F;"></h2>
+                    <p id="context-intro" class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto"></p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-8 rounded-lg shadow-lg border-l-4 border-clay-400" style="border-color: #E3A387;">
+                        <h3 id="context-card-title" class="text-2xl font-bold mb-3" style="color: #36454F;"></h3>
+                        <p id="context-card-text" class="text-gray-700"></p>
+                    </div>
+                    <div class="flex justify-center items-center">
+                         <img src="https://placehold.co/400x400/F5F5DC/36454F?text=Pag-iisa+at+Pagsubok" alt="[Larawan ng isang taong nag-iisa sa gitna ng bagyo]" class="rounded-lg shadow-lg w-full max-w-sm">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lessons" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="text-center mb-12">
+                    <h2 id="lessons-title" class="text-3xl md:text-4xl font-bold" style="color: #36454F;"></h2>
+                    <p id="lessons-intro" class="mt-4 text-lg text-gray-600"></p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="tab-buttons">
+                    <button id="tab-btn-1" data-tab="tab1" class="tab-btn active text-base md:text-lg font-bold py-3 px-6 rounded-full bg-gray-200 text-gray-700"></button>
+                    <button id="tab-btn-2" data-tab="tab2" class="tab-btn text-base md:text-lg font-bold py-3 px-6 rounded-full bg-gray-200 text-gray-700"></button>
+                    <button id="tab-btn-3" data-tab="tab3" class="tab-btn text-base md:text-lg font-bold py-3 px-6 rounded-full bg-gray-200 text-gray-700"></button>
+                </div>
+
+                <div id="tab-contents" class="mt-8">
+                    <div id="tab1" class="tab-content active bg-gray-50 p-8 rounded-lg shadow-inner">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 id="lesson1-title" class="text-2xl font-bold mb-4" style="color: #E3A387;"></h3>
+                                <p id="lesson1-text" class="text-lg mb-4 text-gray-700"></p>
+                                <blockquote class="border-l-4 border-yellow-500 pl-4 py-2 bg-yellow-50 text-gray-800 italic rounded-r-lg">
+                                    <span id="lesson1-quote"></span>
+                                    <footer id="lesson1-quote-footer" class="text-sm mt-2 not-italic"></footer>
+                                </blockquote>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <img src="https://placehold.co/400x300/F5F5DC/36454F?text=Panalangin" alt="[Larawan ng mga kamay na nananalangin]" class="rounded-lg shadow-lg w-full max-w-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab2" class="tab-content bg-gray-50 p-8 rounded-lg shadow-inner">
+                         <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 id="lesson2-title" class="text-2xl font-bold mb-4" style="color: #E3A387;"></h3>
+                                <p id="lesson2-text" class="text-lg mb-4 text-gray-700"></p>
+                                 <blockquote class="border-l-4 border-yellow-500 pl-4 py-2 bg-yellow-50 text-gray-800 italic rounded-r-lg">
+                                    <span id="lesson2-quote"></span>
+                                     <footer id="lesson2-quote-footer" class="text-sm mt-2 not-italic"></footer>
+                                </blockquote>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                 <img src="https://placehold.co/400x300/F5F5DC/36454F?text=Hustisya+ng+Diyos" alt="[Larawan ng timbangan ng hustisya]" class="rounded-lg shadow-lg w-full max-w-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab3" class="tab-content bg-gray-50 p-8 rounded-lg shadow-inner">
+                         <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 id="lesson3-title" class="text-2xl font-bold mb-4" style="color: #E3A387;"></h3>
+                                <p id="lesson3-text" class="text-lg mb-4 text-gray-700"></p>
+                                <div class="mt-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                                     <p id="lesson3-insight" class="font-bold text-green-800"></p>
+                                </div>
+                            </div>
+                             <div class="flex justify-center items-center">
+                                 <img src="https://placehold.co/400x300/F5F5DC/36454F?text=Tagumpay+at+Pag-asa" alt="[Larawan ng halamang sumisibol]" class="rounded-lg shadow-lg w-full max-w-sm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="summary" class="py-16 md:py-24">
+             <div class="container mx-auto px-6 max-w-5xl text-center">
+                 <h2 id="summary-title" class="text-3xl md:text-4xl font-bold mb-12" style="color: #36454F;"></h2>
+                 <div class="grid md:grid-cols-3 gap-8">
+                     <div class="bg-white p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                         <span class="text-6xl">🛡️</span>
+                         <h3 id="summary1-title" class="text-2xl font-bold mt-4 mb-2"></h3>
+                         <p id="summary1-text" class="text-gray-600"></p>
+                     </div>
+                     <div class="bg-white p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                         <span class="text-6xl">⚖️</span>
+                         <h3 id="summary2-title" class="text-2xl font-bold mt-4 mb-2"></h3>
+                         <p id="summary2-text" class="text-gray-600"></p>
+                     </div>
+                     <div class="bg-white p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                         <span class="text-6xl">🏆</span>
+                         <h3 id="summary3-title" class="text-2xl font-bold mt-4 mb-2"></h3>
+                         <p id="summary3-text" class="text-gray-600"></p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <section class="conclusion-bg text-white">
+            <div class="py-24 md:py-32">
+                <div class="container mx-auto px-6 max-w-4xl text-center">
+                    <h2 id="conclusion-title" class="font-title text-4xl md:text-5xl font-black"></h2>
+                    <p id="conclusion-text" class="mt-6 text-xl md:text-2xl font-light text-gray-200"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-charcoal-800 text-center p-6" style="background-color: #36454F;">
+        <p id="footer-text" class="text-white"></p>
+    </footer>
+
+    <script>
+        // === LUGAR KUNG SAAN PWEDE I-EDIT ANG LAHAT NG TEXT ===
+        // Palitan lang ang text sa loob ng mga panipi (quotes) sa ibaba.
+        const contentData = {
+            hero: {
+                title: "AWIT 109",
+                subtitle: "Isang Guide Para Harapin ang Paninira nang may Pananampalataya"
+            },
+            context: {
+                title: "Sinulat Habang Sinusubok",
+                intro: "Ang Psalm 109 ay hindi lang basta tula. Dasal ito ni King David noong panahong down na down siya. Dito niya nilabas yung sakit ng pagtataksil at paninira galing mismo sa mga taong tinulungan niya.",
+                cardTitle: "Ang Sakit ng Salita",
+                cardText: "Kahit hari pa si David, nasaktan pa rin siya sa mga fake news laban sa kanya. Patunay lang na kahit sino, pwedeng masaktan sa salita ng iba."
+            },
+            lessons: {
+                title: "Tatlong Lessons Para sa Atin",
+                intro: "So paano natin haharapin ang mga ganitong sitwasyon? May tatlong step-by-step na turo ang Psalm 109.",
+                tab1button: "1. Ang Depensa Natin",
+                tab2button: "2. Ang Hustisya Para Sa'tin",
+                tab3button: "3. Ang Tagumpay Natin",
+                lesson1: {
+                    title: "Unang Aral: Lumapit kay God (Verse 1-5)",
+                    text: "Imbis na gumanti, ang unang ginawa ni David ay magdasal. Pinapakita nito na ang una nating depensa ay ang lumapit at magtiwala kay God. Mas powerful ang pagdarasal kaysa sa pakikipag-away.",
+                    quote: `"Mapalad kayo kapag iniinsulto kayo at pinag-uusig..." - Mateo 5:11`,
+                    quoteFooter: "Minsan, ang paninira pa ang daan para mas lalo tayong magtiwala kay Cristo."
+                },
+                lesson2: {
+                    title: "Ikalawang Aral: Ipaubaya ang Hustisya (Verse 6-20)",
+                    text: "Kahit mabigat yung mga sinabi ni David sa dasal niya, pinapakita nito na ipinapaubaya na niya ang paghatol sa Diyos. Alam niyang si God lang ang patas na Judge. Hindi natin kailangan ilagay ang batas sa ating mga kamay.",
+                    quote: `"Huwag kayong maghihiganti... 'Akin ang paghihiganti, ako ang gaganti,' sabi ng Panginoon." - Roma 12:19`,
+                    quoteFooter: "Hayaan mo na si God sa paghihiganti; tayo, magtiwala lang tayo sa hustisya Niya."
+                },
+                lesson3: {
+                    title: "Ikatlong Aral: Magtiwala sa Tagumpay (Verse 21-31)",
+                    text: "Mula sa pagdaing, naging papuri ang dasal ni David. Ito ay dahil naniniwala siyang sa huli, si God ang kikilos para bigyan siya ng tagumpay—hindi para sa sarili niyang yabang, kundi para ang pangalan ng Diyos ang umangat.",
+                    insight: "Nagiging papuri ang dasal natin kapag mas malaki ang tiwala natin kay God kaysa sa problema."
+                }
+            },
+            summary: {
+                title: "Ang Guide Natin sa Buhay",
+                item1: { title: "ANG DEPENSA NATIN", text: "Magdasal, 'wag gumanti." },
+                item2: { title: "ANG HUSTISYA NATIN", text: "Ipaubaya kay God ang paghatol." },
+                item3: { title: "ANG TAGUMPAY NATIN", text: "Magtiwala sa plano Niya." }
+            },
+            conclusion: {
+                title: "Hindi natutulog ang Diyos.",
+                text: "Siya ang Depensa natin. Siya ang Hustisya natin. Siya ang Tagumpay natin."
+            },
+            footer: {
+                text: "To God Be All The Glory."
+            }
+        };
+
+        // Function para ilagay ang text sa page
+        function populateContent() {
+            document.getElementById('hero-title').innerText = contentData.hero.title;
+            document.getElementById('hero-subtitle').innerText = contentData.hero.subtitle;
+            document.getElementById('context-title').innerText = contentData.context.title;
+            document.getElementById('context-intro').innerText = contentData.context.intro;
+            document.getElementById('context-card-title').innerText = contentData.context.cardTitle;
+            document.getElementById('context-card-text').innerText = contentData.context.cardText;
+            document.getElementById('lessons-title').innerText = contentData.lessons.title;
+            document.getElementById('lessons-intro').innerText = contentData.lessons.intro;
+            document.getElementById('tab-btn-1').innerText = contentData.lessons.tab1button;
+            document.getElementById('tab-btn-2').innerText = contentData.lessons.tab2button;
+            document.getElementById('tab-btn-3').innerText = contentData.lessons.tab3button;
+            document.getElementById('lesson1-title').innerText = contentData.lessons.lesson1.title;
+            document.getElementById('lesson1-text').innerText = contentData.lessons.lesson1.text;
+            document.getElementById('lesson1-quote').innerText = contentData.lessons.lesson1.quote;
+            document.getElementById('lesson1-quote-footer').innerText = contentData.lessons.lesson1.quoteFooter;
+            document.getElementById('lesson2-title').innerText = contentData.lessons.lesson2.title;
+            document.getElementById('lesson2-text').innerText = contentData.lessons.lesson2.text;
+            document.getElementById('lesson2-quote').innerText = contentData.lessons.lesson2.quote;
+            document.getElementById('lesson2-quote-footer').innerText = contentData.lessons.lesson2.quoteFooter;
+            document.getElementById('lesson3-title').innerText = contentData.lessons.lesson3.title;
+            document.getElementById('lesson3-text').innerText = contentData.lessons.lesson3.text;
+            document.getElementById('lesson3-insight').innerText = contentData.lessons.lesson3.insight;
+            document.getElementById('summary-title').innerText = contentData.summary.title;
+            document.getElementById('summary1-title').innerText = contentData.summary.item1.title;
+            document.getElementById('summary1-text').innerText = contentData.summary.item1.text;
+            document.getElementById('summary2-title').innerText = contentData.summary.item2.title;
+            document.getElementById('summary2-text').innerText = contentData.summary.item2.text;
+            document.getElementById('summary3-title').innerText = contentData.summary.item3.title;
+            document.getElementById('summary3-text').innerText = contentData.summary.item3.text;
+            document.getElementById('conclusion-title').innerText = contentData.conclusion.title;
+            document.getElementById('conclusion-text').innerText = contentData.conclusion.text;
+            document.getElementById('footer-text').innerText = contentData.footer.text;
+        }
+
+        // Tawagin ang function kapag ready na ang page
+        document.addEventListener('DOMContentLoaded', populateContent);
+
+
+        // --- Tab Functionality ---
+        const tabButtons = document.getElementById('tab-buttons');
+        const tabContents = document.getElementById('tab-contents');
+
+        tabButtons.addEventListener('click', (event) => {
+            const clickedButton = event.target.closest('button');
+            if (!clickedButton) return;
+
+            const tabId = clickedButton.dataset.tab;
+            
+            Array.from(tabButtons.children).forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            clickedButton.classList.add('active');
+
+            Array.from(tabContents.children).forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
