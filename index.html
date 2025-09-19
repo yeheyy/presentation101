@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Sand (Beige #F5F5DC, Clay #E3A387, Charcoal #36454F, Gold #FFD700) -->
-    <!-- Application Structure Plan: A single-page, scrollable application divided into thematic sections: Hero, Context, an interactive Tab-based section for the three Core Lessons, an Infographic Summary, and a concluding message. This structure transforms the linear presentation guide into a more engaging, user-driven exploratory experience. The tabbed interaction is key, allowing users to focus on one lesson at a time while understanding they are part of a cohesive whole, which is better for learning and retention than simple scrolling. -->
+    <!-- Application Structure Plan: A single-page, scrollable application divided into thematic sections: Hero, Context, an interactive Tab-based section for the three Core Lessons, an Infographic Summary, a concluding message. This structure transforms the linear presentation guide into a more engaging, user-driven exploratory experience. The tabbed interaction is key, allowing users to focus on one lesson at a time while understanding they are part of a cohesive whole, which is better for learning and retention than simple scrolling. -->
     <!-- Visualization & Content Choices: Report Info: Three main lessons from Psalm 109 -> Goal: Organize & Engage -> Viz/Method: Interactive Tabbed Interface (HTML/CSS/JS) -> Interaction: User clicks to reveal content for each lesson -> Justification: Promotes active user exploration over passive reading. Report Info: Summary of lessons -> Goal: Inform/Organize -> Viz/Method: 3-column infographic-style layout (HTML/Tailwind) with Unicode icons (🛡️, ⚖️, 🏆) -> Justification: Provides a quick, scannable summary. All graphics are Unicode/CSS-based. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -30,7 +30,7 @@
             background-position: center;
         }
         .conclusion-bg {
-             background-image: linear-gradient(rgba(54, 69, 79, 0.7), rgba(54, 69, 79, 0.7)), url('https://placehold.co/1200x600/E3A387/36454F?text=Matatag+na+Kuta');
+             background-image: linear-gradient(rgba(54, 69, 79, 0.7), rgba(54, 69, 79, 0.7)), url('https://placehold.co/E3A387/36454F?text=GLORY+TO+GOD');
             background-size: cover;
             background-position: center;
         }
@@ -51,9 +51,31 @@
             display: block;
             opacity: 1;
         }
+        .editable {
+            outline: 2px dashed #E3A387;
+            cursor: text;
+            background-color: rgba(255, 239, 213, 0.5);
+        }
+        .form-radio:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+            border-color: transparent;
+            background-color: currentColor;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .quiz-question {
+            transition: border 0.3s ease;
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <div id="edit-controls" class="fixed bottom-5 right-5 z-50">
+        <button id="edit-toggle-btn" class="bg-amber-500 text-white font-bold py-3 px-5 rounded-full shadow-lg hover:bg-amber-600 transition-all duration-300 transform hover:scale-110">
+            <span class="text-xl">✏️</span> Edit
+        </button>
+    </div>
 
     <header class="hero-bg text-white flex items-center justify-center h-screen min-h-[500px]">
         <div class="text-center p-8">
@@ -75,7 +97,7 @@
                         <p id="context-card-text" class="text-gray-700"></p>
                     </div>
                     <div class="flex justify-center items-center">
-                         <img src="https://placehold.co/400x400/F5F5DC/36454F?text=Pag-iisa+at+Pagsubok" alt="[Larawan ng isang taong nag-iisa sa gitna ng bagyo]" class="rounded-lg shadow-lg w-full max-w-sm">
+                         <img src="https://placehold.co/400x400/36454F/F5F5DC?text=Isang+tao+mag-isa+sa+gitna+ng+pagsubok" alt="[Larawan ng isang taong nag-iisa sa gitna ng bagyo]" class="rounded-lg shadow-lg w-full max-w-sm">
                     </div>
                 </div>
             </div>
@@ -163,6 +185,72 @@
                          <p id="summary3-text" class="text-gray-600"></p>
                      </div>
                  </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <h2 id="quiz-title" class="text-3xl md:text-4xl font-bold mb-8" style="color: #36454F;">Subukan Natin!</h2>
+                <div id="quiz-form" class="text-left space-y-8">
+                    <!-- Question 1 -->
+                    <div class="quiz-question bg-gray-50 p-6 rounded-lg shadow-inner">
+                        <p class="text-lg font-bold mb-4">1. Ano ang unang ginawa ni David noong siya ay sinisiraan?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q1" value="a" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Gumanti</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q1" value="b" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Nagdasal</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q1" value="c" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Nagsulat ng tula</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 2 -->
+                    <div class="quiz-question bg-gray-50 p-6 rounded-lg shadow-inner">
+                        <p class="text-lg font-bold mb-4">2. Kanino natin dapat ipaubaya ang hustisya o paghatol?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q2" value="a" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Sa sarili</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q2" value="b" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Sa kaibigan</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q2" value="c" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Sa Diyos</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Question 3 -->
+                    <div class="quiz-question bg-gray-50 p-6 rounded-lg shadow-inner">
+                        <p class="text-lg font-bold mb-4">3. Ano ang naging resulta ng pagtitiwala ni David sa Diyos?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q3" value="a" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Paghihiganti</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q3" value="b" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Papuri at Tagumpay</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q3" value="c" class="form-radio h-5 w-5 text-amber-500">
+                                <span>Pagkalimot</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button id="check-quiz-btn" class="mt-8 bg-clay-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-clay-600 transition-all duration-300 transform hover:scale-105" style="background-color: #E3A387;">
+                    Check Answers
+                </button>
+                <div id="quiz-results" class="mt-8 text-left" style="display: none;"></div>
             </div>
         </section>
 
@@ -268,36 +356,171 @@
             document.getElementById('conclusion-text').innerText = contentData.conclusion.text;
             document.getElementById('footer-text').innerText = contentData.footer.text;
         }
+        
+        // --- Edit Functionality ---
+        let isEditMode = false;
+        const editableElementIds = [
+            'hero-title', 'hero-subtitle', 'context-title', 'context-intro',
+            'context-card-title', 'context-card-text', 'lessons-title', 'lessons-intro',
+            'tab-btn-1', 'tab-btn-2', 'tab-btn-3', 'lesson1-title', 'lesson1-text',
+            'lesson1-quote', 'lesson1-quote-footer', 'lesson2-title', 'lesson2-text',
+            'lesson2-quote', 'lesson2-quote-footer', 'lesson3-title', 'lesson3-text',
+            'lesson3-insight', 'summary-title', 'summary1-title', 'summary1-text',
+            'summary2-title', 'summary2-text', 'summary3-title', 'summary3-text',
+            'conclusion-title', 'conclusion-text', 'footer-text'
+        ];
 
-        // Tawagin ang function kapag ready na ang page
-        document.addEventListener('DOMContentLoaded', populateContent);
-
-
-        // --- Tab Functionality ---
-        const tabButtons = document.getElementById('tab-buttons');
-        const tabContents = document.getElementById('tab-contents');
-
-        tabButtons.addEventListener('click', (event) => {
-            const clickedButton = event.target.closest('button');
-            if (!clickedButton) return;
-
-            const tabId = clickedButton.dataset.tab;
-            
-            Array.from(tabButtons.children).forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            clickedButton.classList.add('active');
-
-            Array.from(tabContents.children).forEach(content => {
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
+        function setEditableState(isEditable) {
+            editableElementIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.contentEditable = isEditable;
+                    el.classList.toggle('editable', isEditable);
                 }
+            });
+        }
+
+        function updateContentDataFromDOM() {
+            contentData.hero.title = document.getElementById('hero-title').innerText;
+            contentData.hero.subtitle = document.getElementById('hero-subtitle').innerText;
+            contentData.context.title = document.getElementById('context-title').innerText;
+            contentData.context.intro = document.getElementById('context-intro').innerText;
+            contentData.context.cardTitle = document.getElementById('context-card-title').innerText;
+            contentData.context.cardText = document.getElementById('context-card-text').innerText;
+            contentData.lessons.title = document.getElementById('lessons-title').innerText;
+            contentData.lessons.intro = document.getElementById('lessons-intro').innerText;
+            contentData.lessons.tab1button = document.getElementById('tab-btn-1').innerText;
+            contentData.lessons.tab2button = document.getElementById('tab-btn-2').innerText;
+            contentData.lessons.tab3button = document.getElementById('tab-btn-3').innerText;
+            contentData.lessons.lesson1.title = document.getElementById('lesson1-title').innerText;
+            contentData.lessons.lesson1.text = document.getElementById('lesson1-text').innerText;
+            contentData.lessons.lesson1.quote = document.getElementById('lesson1-quote').innerText;
+            contentData.lessons.lesson1.quoteFooter = document.getElementById('lesson1-quote-footer').innerText;
+            contentData.lessons.lesson2.title = document.getElementById('lesson2-title').innerText;
+            contentData.lessons.lesson2.text = document.getElementById('lesson2-text').innerText;
+            contentData.lessons.lesson2.quote = document.getElementById('lesson2-quote').innerText;
+            contentData.lessons.lesson2.quoteFooter = document.getElementById('lesson2-quote-footer').innerText;
+            contentData.lessons.lesson3.title = document.getElementById('lesson3-title').innerText;
+            contentData.lessons.lesson3.text = document.getElementById('lesson3-text').innerText;
+            contentData.lessons.lesson3.insight = document.getElementById('lesson3-insight').innerText;
+            contentData.summary.title = document.getElementById('summary-title').innerText;
+            contentData.summary.item1.title = document.getElementById('summary1-title').innerText;
+            contentData.summary.item1.text = document.getElementById('summary1-text').innerText;
+            contentData.summary.item2.title = document.getElementById('summary2-title').innerText;
+            contentData.summary.item2.text = document.getElementById('summary2-text').innerText;
+            contentData.summary.item3.title = document.getElementById('summary3-title').innerText;
+            contentData.summary.item3.text = document.getElementById('summary3-text').innerText;
+            contentData.conclusion.title = document.getElementById('conclusion-title').innerText;
+            contentData.conclusion.text = document.getElementById('conclusion-text').innerText;
+            contentData.footer.text = document.getElementById('footer-text').innerText;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateContent();
+
+            const editToggleButton = document.getElementById('edit-toggle-btn');
+            editToggleButton.addEventListener('click', () => {
+                isEditMode = !isEditMode;
+                setEditableState(isEditMode);
+                
+                if (isEditMode) {
+                    editToggleButton.innerHTML = '<span class="text-xl">💾</span> Save';
+                    editToggleButton.classList.remove('bg-amber-500', 'hover:bg-amber-600');
+                    editToggleButton.classList.add('bg-green-500', 'hover:bg-green-600');
+                } else {
+                    updateContentDataFromDOM();
+                    editToggleButton.innerHTML = '<span class="text-xl">✏️</span> Edit';
+                    editToggleButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    editToggleButton.classList.add('bg-amber-500', 'hover:bg-amber-600');
+                    populateContent();
+                }
+            });
+
+            // --- Tab Functionality ---
+            const tabButtons = document.getElementById('tab-buttons');
+            const tabContents = document.getElementById('tab-contents');
+
+            tabButtons.addEventListener('click', (event) => {
+                const clickedButton = event.target.closest('button');
+                if (!clickedButton) return;
+
+                const tabId = clickedButton.dataset.tab;
+                
+                Array.from(tabButtons.children).forEach(button => {
+                    button.classList.remove('active');
+                });
+                
+                clickedButton.classList.add('active');
+
+                Array.from(tabContents.children).forEach(content => {
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- Quiz Functionality ---
+            const quizButton = document.getElementById('check-quiz-btn');
+            const quizResultsContainer = document.getElementById('quiz-results');
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'b'
+            };
+            const feedback = {
+                q1: {
+                    b: "Tama! Ang pagdarasal ang unang depensa ni David.",
+                    incorrect: "Hindi tama. Ayon sa aral, ang una niyang ginawa ay magdasal, hindi gumanti."
+                },
+                q2: {
+                    c: "Tama! Ang hustisya ay dapat laging ipaubaya sa Diyos.",
+                    incorrect: "Mali. Ang turo ay ipaubaya ang paghatol sa Diyos, dahil Siya ang makatarungang Hukom."
+                },
+                q3: {
+                    b: "Tama! Ang tiwala niya ay nagtapos sa papuri at tagumpay.",
+                    incorrect: "Hindi po. Ang resulta ng kanyang tiwala ay tagumpay na nagbigay papuri sa Diyos."
+                }
+            };
+
+            quizButton.addEventListener('click', () => {
+                let score = 0;
+                let resultsHTML = '<h3 class="text-2xl font-bold mb-4 text-center">Resulta:</h3>';
+                const totalQuestions = Object.keys(correctAnswers).length;
+
+                for (const question in correctAnswers) {
+                    const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                    const questionDiv = document.querySelector(`input[name="${question}"]`).closest('.quiz-question');
+                    
+                    questionDiv.style.border = 'none';
+
+                    if (selectedAnswer) {
+                        if (selectedAnswer.value === correctAnswers[question]) {
+                            score++;
+                            resultsHTML += `<div class="p-4 mb-4 bg-green-100 border-l-4 border-green-500 rounded-r-lg"><p class="font-bold text-green-800">${feedback[question][correctAnswers[question]]}</p></div>`;
+                            questionDiv.style.border = '2px solid #4ade80';
+                        } else {
+                            resultsHTML += `<div class="p-4 mb-4 bg-red-100 border-l-4 border-red-500 rounded-r-lg"><p class="font-bold text-red-800">${feedback[question].incorrect}</p></div>`;
+                            questionDiv.style.border = '2px solid #f87171';
+                        }
+                    } else {
+                        resultsHTML += `<div class="p-4 mb-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg"><p class="font-bold text-yellow-800">Hindi mo sinagutan ang tanong #${question.slice(1)}.</p></div>`;
+                        questionDiv.style.border = '2px solid #facc15';
+                    }
+                }
+
+                resultsHTML += `<p class="text-center text-xl font-bold mt-6 p-4 bg-gray-200 rounded-lg">Ang iyong iskor: ${score} out of ${totalQuestions}</p>`;
+                quizResultsContainer.innerHTML = resultsHTML;
+                quizResultsContainer.style.display = 'block';
+
+                quizResultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
         });
     </script>
 </body>
 </html>
+
+
+
 
